@@ -7,15 +7,15 @@ import { nanoid } from "@reduxjs/toolkit";
 import { CanvasDataUtils } from "./utils";
 
 export const defaultCanvasState: CanvasState = {
-    canvasNodes : [],
+    canvasNodes: [],
     canvasEdges: [],
     highlightCanvasNodes: [],
     hoveredNode: null,
 }
 
-export const initialCanvasStateWithHistory :CanvasStateHistory = {
+export const initialCanvasStateWithHistory: CanvasStateHistory = {
     currentEventNo: 0,
-    currentState : defaultCanvasState,
+    currentState: defaultCanvasState,
     statesStore: [defaultCanvasState],
     canvasEventStore: [],
 }
@@ -29,7 +29,7 @@ const canvasDataUtils = new CanvasDataUtils()
 //     if (canvasEvent.name == "addData"){
 //         nextState.canvasNodes.push(canvasEvent.payload.nodes)
 //         nextState.canvasEdges.push(canvasEvent.payload.edges)
-        
+
 //     }else if(canvasEvent.name == "removeData") {
 
 //     }else if(canvasEvent.name == "highlightNode") {
@@ -58,22 +58,39 @@ const canvasSlice = createSlice({
         clearCanvas(state) {
             state.currentState = defaultCanvasState;
         },
-        setNextEvent(state) {
+        setToNextEvent(state) {
             console.log("setNextEvent")
-            const eventNo =  state.currentEventNo + 1;
+            const eventNo = state.currentEventNo + 1;
             state.currentState = state.statesStore[eventNo];
             state.currentEventNo = eventNo;
         },
-        setPreviousState(state) {
+        setToPreviousState(state) {
             console.log("setPreviousState")
-            const eventNo= state.currentEventNo - 1
+            const eventNo = state.currentEventNo - 1
+            state.currentState = state.statesStore[eventNo];
+            state.currentEventNo = eventNo;
+        },
+        setToLastState(state) {
+            console.log("setLastState")
+            const eventNo = state.statesStore.length - 1
+            state.currentState = state.statesStore[eventNo];
+            state.currentEventNo = eventNo;
+        },
+        setToFirstState(state) {
+            console.log("setLastState")
+            const eventNo = 0
             state.currentState = state.statesStore[eventNo];
             state.currentEventNo = eventNo;
         }
+
+
     }
 })
 
-export const { addData, clearCanvas, setNextEvent, setPreviousState} = canvasSlice.actions
+export const { addData, clearCanvas,
+    setToNextEvent, setToPreviousState,
+    setToLastState, setToFirstState
+} = canvasSlice.actions
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
