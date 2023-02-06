@@ -1,4 +1,4 @@
-import { CanvasEvent } from "./types"
+import { CanvasEvent } from "../../graphCanvas/events/types"
 
 
 export interface EventsPlayerProps {

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { ArtBoard } from '../plugins/artBoard/artBoard';
-import { addNode } from './graphCanvasSlice';
-import { CanvasNode } from '../app/types';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { ArtBoard } from '../../plugins/artBoard/artBoard';
+import { addNode } from './canvasSlice';
+import { CanvasNode } from '../../app/types';
 import {
     canvasNodes as canvasNodes_,
     canvasEdges as canvasEdges_,
-    canvasEvents as canvasEvents_
-} from './graphCanvasSlice';
-import { uuidv4 } from '../app/utils';
-import EventsPlayer from '../plugins/eventsPlayer/eventsPlayer';
+} from './canvasSlice';
+import { canvasEvents as canvasEvents_ } from '../events/eventsSlice';
+import { uuidv4 } from '../../app/utils';
+import EventsPlayer from '../events/events';
 
 
 const randNode =()=> {

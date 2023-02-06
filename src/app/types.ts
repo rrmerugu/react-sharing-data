@@ -1,4 +1,4 @@
-import { CanvasEvent } from "../plugins/eventsPlayer/types";
+// import { CanvasEvent } from "../plugins/eventsPlayer/types";
 
 
 export interface Properties {
@@ -26,5 +26,5 @@ export interface GraphCanvasState  {
     canvasEdges:  Array<CanvasEdge>,
     highlightCanvasNodes:  Array<CanvasNode>,
     hoveredNode: CanvasNode | null,
-    canvasEvents: Array<CanvasEvent>
+    // canvasEvents: Array<CanvasEvent>
 }

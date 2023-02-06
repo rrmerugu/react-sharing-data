@@ -1,33 +1,41 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { RootState, AppThunk } from "../app/store";
-import { CanvasEdge, CanvasNode, GraphCanvasState } from "../app/types";
+import { RootState, AppThunk } from "../../app/store";
+import { CanvasEdge, CanvasNode, GraphCanvasState } from "../../app/types";
 
 
-const initialState: GraphCanvasState = {
+export const initialGraphCanvasState: GraphCanvasState = {
     canvasNodes : [],
     canvasEdges: [],
     highlightCanvasNodes: [],
-    hoveredNode: null,
-
-    canvasEvents: []
+    hoveredNode: null
 }
 
-const graphCanvasSlice = createSlice({
-    name: "graphCanvasSlice",
-    initialState,
+const canvasSlice = createSlice({
+    name: "canvasSlice",
+    initialState: initialGraphCanvasState,
     reducers: {
         addNode(state, action: PayloadAction<CanvasNode>) {
             let existingNodes = state.canvasNodes;
             existingNodes.push(action.payload)
             state.canvasNodes = existingNodes
         },
-        // clearNodes()
+        addEdge(state, action: PayloadAction<CanvasEdge>) {
+            let existingEdges = state.canvasEdges;
+            existingEdges.push(action.payload)
+            state.canvasEdges = existingEdges
+        },
+        clearNodes(state) {
+            state.canvasNodes = []
+        },
+        clearEdges(state) {
+            state.canvasEdges = []
+        }
         // setNodes()
     }
 })
 
-export const { addNode } = graphCanvasSlice.actions
+export const { addNode, clearNodes, clearEdges } = canvasSlice.actions
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -36,9 +44,9 @@ export const canvasNodes = (state: RootState) => state.graphCanvas.canvasNodes;
 export const canvasEdges = (state: RootState) => state.graphCanvas.canvasEdges;
 export const highlightCanvasNodes = (state: RootState) => state.graphCanvas.highlightCanvasNodes;
 export const hoveredNode = (state: RootState) => state.graphCanvas.hoveredNode;
-export const canvasEvents = (state: RootState) => state.graphCanvas.canvasEvents;
+// export const canvasEvents = (state: RootState) => state.graphCanvas.canvasEvents;
 
 
 
-export default graphCanvasSlice.reducer
+export default canvasSlice.reducer
 
