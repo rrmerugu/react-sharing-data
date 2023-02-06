@@ -1,7 +1,7 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
-import canvasReducer from "../graphCanvas/canvas/canvasSlice";
-import eventsReducer from "../graphCanvas/events/eventsSlice"
+import canvasReducer from "../components/canvas/canvasSlice";
+import eventsReducer from "../components/events/eventsSlice"
 
 export const store = configureStore({
   reducer: {

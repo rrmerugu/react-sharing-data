@@ -44,7 +44,7 @@ const defaultLogEventHandler = (eventName: string, eventParams: any) => {
 }
 
 
-const Canvas = ({
+const VisCanvas = ({
                     data = defaultData,
                     displaySettings = {},
                     nodeSizeBasedOnLinks,
@@ -171,4 +171,4 @@ const Canvas = ({
 };
 
 
-export default Canvas;
+export default VisCanvas;
