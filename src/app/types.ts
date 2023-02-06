@@ -21,10 +21,26 @@ export interface CanvasData {
     canvasEdges:  Array<CanvasEdge>
 }
 
-export interface GraphCanvasState  {
+export interface CanvasState  {
     canvasNodes: Array<CanvasNode>,
     canvasEdges:  Array<CanvasEdge>,
     highlightCanvasNodes:  Array<CanvasNode>,
     hoveredNode: CanvasNode | null,
-    // canvasEvents: Array<CanvasEvent>
+}
+
+export interface CanvasStateHistory {
+    currentEventNo: number,
+    currentState : CanvasState,
+    statesStore: Array<CanvasState>,
+    canvasEventStore: Array<CanvasEvent>
+}
+
+
+export type CanvasEventType = "highlightNode" | "unHighlightNode" | "addData" | "removeData"
+
+export interface CanvasEvent {
+    id: string,
+    name : CanvasEventType,
+    createdAt: Date
+    payload: any
 }

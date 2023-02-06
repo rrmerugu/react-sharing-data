@@ -1,50 +1,58 @@
 import React, { useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { ArtBoard } from '../artBoard/artBoard';
-import { addNode } from './canvasSlice';
+import { addData, clearCanvas } from './canvasSlice';
 import { CanvasNode } from '../../app/types';
 import {
-    canvasNodes as canvasNodes_,
-    canvasEdges as canvasEdges_,
+    currentState as currentState_,
+    currentEventNo as currentEventNo_,
+    statesStore as statesStore_,
+    canvasEventStore as canvasEventStore_,
 } from './canvasSlice';
-import { canvasEvents as canvasEvents_ } from '../events/eventsSlice';
+// import { canvasEvents as canvasEvents_ } from '../events/eventsSlice';
 import { uuidv4 } from '../../app/utils';
 import EventsPlayer from '../events/events';
 
 
-const randNode =()=> {
+const randNode = () => {
     const u = uuidv4()
-    const node: CanvasNode =  {
+    const node: CanvasNode = {
         id: u,
         label: "User",
         properties: {
-            name: "Ravi "+ u
+            name: "Ravi " + u
         }
     }
     return node
 }
 
 export const GraphCanvas = () => {
-    const canvasNodes = useAppSelector(canvasNodes_);
-    const canvasEdges = useAppSelector(canvasEdges_);
-    const canvasEvents = useAppSelector(canvasEvents_);
+    const currentState = useAppSelector(currentState_);
+    const currentEventNo = useAppSelector(currentEventNo_);
+    const statesStore = useAppSelector(statesStore_);
+    const canvasEventStore = useAppSelector(canvasEventStore_);
 
     const dispatch = useAppDispatch();
-    console.log("========canvasEvents",canvasEvents)
 
     return (
-        <div>
+        <div >
             <h1>Graph Canvas</h1>
-            <EventsPlayer canvasEvents={canvasEvents} />
-        
-            <div className="" style={{border: "1px solid #efefef"}}>
-                <ArtBoard canvasNodes={canvasNodes} canvasEdges={canvasEdges} />
+            <EventsPlayer canvasEventStore={canvasEventStore} currentEventNo={currentEventNo} statesStore={statesStore} />
+
+            <div className="" style={{ border: "1px solid #efefef", width: "900px" }}>
+                <ArtBoard canvasNodes={currentState.canvasNodes} canvasEdges={currentState.canvasEdges} />
             </div>
 
             <button
                 aria-label="add Node"
-                onClick={() => dispatch(addNode(randNode()))}
+                onClick={() => dispatch(addData({ canvasNodes: [randNode()], canvasEdges: [] }))}
             >+ add Node  </button>
+            <button
+                aria-label="add Node"
+                onClick={() => dispatch(clearCanvas())}
+            >clear data  </button>
+
+
         </div>
     );
 }

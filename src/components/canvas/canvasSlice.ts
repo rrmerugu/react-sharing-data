@@ -1,50 +1,88 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { RootState, AppThunk } from "../../app/store";
-import { CanvasEdge, CanvasNode, GraphCanvasState } from "../../app/types";
+import { CanvasEdge, CanvasNode, CanvasStateHistory, CanvasState, CanvasEvent, CanvasData } from "../../app/types";
+import { copyObject } from "../../app/utils";
+import { nanoid } from "@reduxjs/toolkit";
+import { CanvasDataUtils } from "./utils";
 
-
-export const initialGraphCanvasState: GraphCanvasState = {
+export const defaultCanvasState: CanvasState = {
     canvasNodes : [],
     canvasEdges: [],
     highlightCanvasNodes: [],
-    hoveredNode: null
+    hoveredNode: null,
 }
+
+export const initialCanvasStateWithHistory :CanvasStateHistory = {
+    currentEventNo: 0,
+    currentState : defaultCanvasState,
+    statesStore: [defaultCanvasState],
+    canvasEventStore: [],
+}
+
+const canvasDataUtils = new CanvasDataUtils()
+
+// const addEventToState = (p: CanvasData, currentState: CanvasState) => {
+//     // if 
+//     let nextState = copyObject(currentState)
+//     nextState.id = nanoid()
+//     if (canvasEvent.name == "addData"){
+//         nextState.canvasNodes.push(canvasEvent.payload.nodes)
+//         nextState.canvasEdges.push(canvasEvent.payload.edges)
+        
+//     }else if(canvasEvent.name == "removeData") {
+
+//     }else if(canvasEvent.name == "highlightNode") {
+
+//     }else if(canvasEvent.name == "unHighlightNode"){
+
+//     }
+
+//     return nextState
+// }
 
 const canvasSlice = createSlice({
     name: "canvasSlice",
-    initialState: initialGraphCanvasState,
+    initialState: initialCanvasStateWithHistory,
     reducers: {
-        addNode(state, action: PayloadAction<CanvasNode>) {
-            let existingNodes = state.canvasNodes;
-            existingNodes.push(action.payload)
-            state.canvasNodes = existingNodes
+        addData(state, action: PayloadAction<CanvasData>) {
+            // add an event about what new data is being added 
+            // state.canvasEventStore.push(action.payload)
+            //
+            state.currentEventNo += 1;
+            const nextState = canvasDataUtils.addData(action.payload, state.currentState)
+            state.statesStore.push(nextState)
+
         },
-        addEdge(state, action: PayloadAction<CanvasEdge>) {
-            let existingEdges = state.canvasEdges;
-            existingEdges.push(action.payload)
-            state.canvasEdges = existingEdges
+
+        clearCanvas(state) {
+            state.currentState = defaultCanvasState;
         },
-        clearNodes(state) {
-            state.canvasNodes = []
+        setNextEvent(state) {
+            console.log("setNextEvent")
+            const eventNo =  state.currentEventNo + 1;
+            state.currentState = state.statesStore[eventNo];
+            state.currentEventNo = eventNo;
         },
-        clearEdges(state) {
-            state.canvasEdges = []
+        setPreviousState(state) {
+            console.log("setPreviousState")
+            const eventNo= state.currentEventNo - 1
+            state.currentState = state.statesStore[eventNo];
+            state.currentEventNo = eventNo;
         }
-        // setNodes()
     }
 })
 
-export const { addNode, clearNodes, clearEdges } = canvasSlice.actions
+export const { addData, clearCanvas, setNextEvent, setPreviousState} = canvasSlice.actions
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
-export const canvasNodes = (state: RootState) => state.graphCanvas.canvasNodes;
-export const canvasEdges = (state: RootState) => state.graphCanvas.canvasEdges;
-export const highlightCanvasNodes = (state: RootState) => state.graphCanvas.highlightCanvasNodes;
-export const hoveredNode = (state: RootState) => state.graphCanvas.hoveredNode;
-// export const canvasEvents = (state: RootState) => state.graphCanvas.canvasEvents;
+export const currentEventNo = (state: RootState) => state.graphCanvas.currentEventNo;
+export const currentState = (state: RootState) => state.graphCanvas.currentState;
+export const statesStore = (state: RootState) => state.graphCanvas.statesStore;
+export const canvasEventStore = (state: RootState) => state.graphCanvas.canvasEventStore;
+// export const canvasEventStore = (state: RootState) => state.graphCanvas.canvasEventStore;
 
 
 
