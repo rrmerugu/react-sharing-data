@@ -8,7 +8,9 @@ const initialState: GraphCanvasState = {
     canvasNodes : [],
     canvasEdges: [],
     highlightCanvasNodes: [],
-    hoveredNode: null
+    hoveredNode: null,
+
+    canvasEvents: []
 }
 
 const graphCanvasSlice = createSlice({
@@ -34,6 +36,7 @@ export const canvasNodes = (state: RootState) => state.graphCanvas.canvasNodes;
 export const canvasEdges = (state: RootState) => state.graphCanvas.canvasEdges;
 export const highlightCanvasNodes = (state: RootState) => state.graphCanvas.highlightCanvasNodes;
 export const hoveredNode = (state: RootState) => state.graphCanvas.hoveredNode;
+export const canvasEvents = (state: RootState) => state.graphCanvas.canvasEvents;
 
 
 

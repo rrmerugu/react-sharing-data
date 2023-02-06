@@ -28,7 +28,8 @@ const initialState: GraphCanvasState = {
         to: 2
     }],
     highlightCanvasNodes: [],
-    hoveredNode: null
+    hoveredNode: null,
+    canvasEvents: []
 };
 
 

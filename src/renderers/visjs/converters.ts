@@ -4,6 +4,7 @@ import { VisNode, VisEdge } from "./types";
 import { copyObject } from "../../app/utils";
 import { nodeStateSuffix } from "./constants";
 import { NodeSetting, VisCanvasData, CanvasDisplaySettings } from "./types";
+import { defaultSettings } from "./defaults";
 
 export const convertCanvasNodeToVisNode = (canvasNodes: CanvasNode[]): VisNode[] => {
     let nodes: VisNode[] = []
@@ -64,31 +65,11 @@ export const detectGroups = (data: VisCanvasData) => {
 export const createDefaultOptions = (displaySettings: CanvasDisplaySettings, data: VisCanvasData) => {
     // const settingManager = new DisplayManager()
 
-    let settings: Options = {
-        physics: false,
-        autoResize: true,
-        // physics: {
-        //     stabilization: true,
-            // barnesHut: {
-            //     gravitationalConstant: -80000,
-            //     springConstant: 0.001,
-            //     springLength: 200,
-            // },
-        // },
-        interaction: {
-            tooltipDelay: 200,
-            hover: true,
-            hideEdgesOnDrag: true,
-        },
-
-        // nodes: settingManager.createNodeSettings({}, undefined, nodeStateSuffix.DEFAULT),
-        // edges: settingManager.createEdgeSettings({}, undefined),
-    }
-    console.log("===settings", settings)
-    const {nodeLabels, edgeLabels} = detectGroups(data)
-    let groups: any = {
-        useDefaultGroups: false
-    }
+    let settings = copyObject(defaultSettings)
+    // const {nodeLabels, edgeLabels} = detectGroups(data)
+    // let groups: any = {
+    //     useDefaultGroups: false
+    // }
     // // console.log("Object.keys(displaySettings.nodeSettings)", Object.keys(displaySettings.nodeSettings))
     // // create default groups 
     // nodeLabels.forEach((label) => {
@@ -112,7 +93,7 @@ export const createDefaultOptions = (displaySettings: CanvasDisplaySettings, dat
     // }
 
 
-    console.log("======groups", groups)
-    settings.groups = groups
+    // console.log("======groups", groups)
+    // settings.groups = groups
     return settings
 }

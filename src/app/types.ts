@@ -1,10 +1,9 @@
+import { CanvasEvent } from "../plugins/eventsPlayer/types";
 
 
 export interface Properties {
     [key: string]: any;
 }
-
- 
 
 export interface CanvasNode {
     id: number|string,
@@ -26,5 +25,6 @@ export interface GraphCanvasState  {
     canvasNodes: Array<CanvasNode>,
     canvasEdges:  Array<CanvasEdge>,
     highlightCanvasNodes:  Array<CanvasNode>,
-    hoveredNode: CanvasNode | null
+    hoveredNode: CanvasNode | null,
+    canvasEvents: Array<CanvasEvent>
 }
