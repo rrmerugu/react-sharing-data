@@ -15,20 +15,30 @@ export const EventsPlayer = ({ canvasEventStore, currentEventNo, statesStore }: 
 
     const dispatch = useAppDispatch();
 
-    const Ref = useRef(null);
     const [autoPlay, setAutoPlay] = useState(false)
+    const [message, setMessage] = useState("")
 
     const startAutoPlay = () => {
-        dispatch(setToFirstState())
-        setAutoPlay(true)
+
+        if (!autoPlay){
+            dispatch(setToFirstState())
+            setAutoPlay(true)
+            setMessage("Autoplaying")
+        }else{
+            setAutoPlay(false)
+            setMessage("Autoplaying stopped")
+        }
+
     }
 
- 
+
     useEffect(() => {
         console.log("useEffect")
         const timeout = setTimeout(() => {
             if (currentEventNo === statesStore.length - 1) {
                 setAutoPlay(false)
+                setMessage("Auto play done")
+
             } else {
                 dispatch(setToNextEvent())
             }
@@ -36,9 +46,16 @@ export const EventsPlayer = ({ canvasEventStore, currentEventNo, statesStore }: 
         return () => clearTimeout(timeout)
     }, [currentEventNo])
 
+    // disable all other buttons
+
+
     return <div className="eventsPlayer" style={{ "border": "1px solid #efefef" }}>
         <h3>Events Player</h3>
-        <p>Currently showing {currentEventNo}/{statesStore.length - 1} states</p>
+        <p>
+            {
+                autoPlay ? <strong>Autoplaying </strong> : <></>
+            }
+            Currently showing {currentEventNo}/{statesStore.length - 1} states</p>
         <div>
             <button onClick={() => dispatch(setToFirstState())} > start </button>
             <button onClick={() => dispatch(setToLastState())}> end </button> &nbsp; &nbsp; &nbsp;
@@ -47,7 +64,9 @@ export const EventsPlayer = ({ canvasEventStore, currentEventNo, statesStore }: 
                 &larr; prev </button>
             <button onClick={() => dispatch(setToNextEvent())} disabled={currentEventNo === statesStore.length - 1 ? true : undefined}>
                 next &rarr; </button> &nbsp; &nbsp; &nbsp;
-            <button onClick={() => startAutoPlay()}> auto play </button> &nbsp; &nbsp; &nbsp;
+            <button onClick={() => startAutoPlay()}>
+                {autoPlay ? "stop autoplay" : "auto play"}
+            </button> &nbsp; &nbsp; &nbsp;
         </div>
 
     </div>
