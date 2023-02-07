@@ -41,6 +41,6 @@ export type CanvasEventType = "highlightNode" | "unHighlightNode" | "addData" | 
 export interface CanvasEvent {
     id: string,
     name : CanvasEventType,
-    createdAt: Date
+    createdAt: String
     payload: any
 }

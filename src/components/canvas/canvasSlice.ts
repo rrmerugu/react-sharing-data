@@ -51,7 +51,7 @@ const canvasSlice = createSlice({
                 id: nanoid(),
                 name: "addData",
                 payload: action.payload,
-                createdAt: new Date()
+                createdAt: new Date().toDateString()
             }
 
             state.canvasEventStore.push(event)

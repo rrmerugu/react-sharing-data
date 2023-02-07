@@ -17,8 +17,9 @@ export const EventsList = ({ canvasEventStore }: EventsListProps) => {
             <h5>Events list</h5>
             {
                 canvasEventStore.map( event =>{
-                    return <div>
-                        <span>{event.id}</span>- <span>{event.name}</span> - <span>{event.createdAt.toDateString()}</span>
+                    return <div key={event.id}>
+                        <span>{event.id}</span>- <span>{event.name}</span> 
+                        {/* - <span>{event.createdAt.toDateString()}</span> */}
                     </div>
                 })
             }
