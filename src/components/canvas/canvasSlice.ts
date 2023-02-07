@@ -47,7 +47,14 @@ const canvasSlice = createSlice({
     reducers: {
         addData(state, action: PayloadAction<CanvasData>) {
             // add an event about what new data is being added 
-            // state.canvasEventStore.push(action.payload)
+            const event : CanvasEvent = {
+                id: nanoid(),
+                name: "addData",
+                payload: action.payload,
+                createdAt: new Date()
+            }
+
+            state.canvasEventStore.push(event)
             //
             state.currentEventNo += 1;
             const nextState = canvasDataUtils.addData(action.payload, state.currentState)

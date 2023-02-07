@@ -11,7 +11,8 @@ import {
 } from './canvasSlice';
 // import { canvasEvents as canvasEvents_ } from '../events/eventsSlice';
 import { uuidv4 } from '../../app/utils';
-import EventsPlayer from '../events/events';
+import EventsPlayer from '../eventsPlayer/eventsPlayer';
+import EventsList from "../eventsList/eventsList"
 
 
 const randNode = () => {
@@ -38,6 +39,7 @@ export const GraphCanvas = () => {
         <div >
             <h1>Graph Canvas</h1>
             <EventsPlayer canvasEventStore={canvasEventStore} currentEventNo={currentEventNo} statesStore={statesStore} />
+            <EventsList canvasEventStore={canvasEventStore} />
 
             <div className="" style={{ border: "1px solid #efefef", width: "900px" }}>
                 <ArtBoard canvasNodes={currentState.canvasNodes} canvasEdges={currentState.canvasEdges} />
