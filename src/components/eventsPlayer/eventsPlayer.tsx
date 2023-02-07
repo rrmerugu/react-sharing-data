@@ -17,6 +17,7 @@ export const EventsPlayer = ({ canvasEventStore, currentEventNo, statesStore }: 
 
     const dispatch = useAppDispatch();
 
+    // const autPlayRef = useRef();
     const [autoPlay, setAutoPlay] = useState(false)
     const [message, setMessage] = useState("")
 
@@ -46,6 +47,7 @@ export const EventsPlayer = ({ canvasEventStore, currentEventNo, statesStore }: 
     useEffect(() => {
         console.log("useEffect currentEventNo, autoplat", currentEventNo, autoPlay)
         console.log("currentEventNo === statesStore.length - 1 ", currentEventNo, statesStore.length - 1)
+        // autPlayRef.current = currentEventNo
         const timeout = setTimeout(() => {
             if (currentEventNo === statesStore.length - 1 && autoPlay === true) {
                 setAutoPlay(false)
@@ -76,7 +78,7 @@ export const EventsPlayer = ({ canvasEventStore, currentEventNo, statesStore }: 
 
             <button onClick={() => dispatch(setToPreviousState())} disabled={currentEventNo === 0 ? true : undefined}>
                 &larr; prev </button>
-            <button onClick={() => startOrPause()}>  {autoPlay ? "pause" : "play"}  </button>
+            <button onClick={() => startOrPause()} disabled={currentEventNo === statesStore.length - 1 ? true : undefined}>  {autoPlay ? "pause" : "play"}  </button>
             <button onClick={() => dispatch(setToNextState())} disabled={currentEventNo === statesStore.length - 1 ? true : undefined}>
                 next &rarr; </button> &nbsp; &nbsp; &nbsp;
             {/* <button onClick={() => startAutoPlay()}>
