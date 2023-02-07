@@ -1,5 +1,5 @@
 import { CanvasEvent, CanvasState } from "../../app/types"
-import { setToFirstState, setToLastState, setToNextEvent, setToPreviousState } from "../canvas/canvasSlice"
+import { setToFirstState, setToLastState, setToNextState, setToPreviousState } from "../canvas/canvasSlice"
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useState, useEffect, useRef } from "react";
 
@@ -12,38 +12,52 @@ export interface EventsPlayerProps {
 
 
 export const EventsPlayer = ({ canvasEventStore, currentEventNo, statesStore }: EventsPlayerProps) => {
+    // play, pause, stop, prev, nex.
+
 
     const dispatch = useAppDispatch();
 
     const [autoPlay, setAutoPlay] = useState(false)
     const [message, setMessage] = useState("")
 
-    const startAutoPlay = () => {
+    // const startAutoPlay = () => {
+    //     if (autoPlay === false) {
+    //         dispatch(setToFirstState())
+    //         setAutoPlay(true)
+    //         setMessage("Autoplaying")
+    //     } else {
+    //         setAutoPlay(false)
+    //         setMessage("Autoplaying stopped")
+    //     }
+    // }
 
-        if (!autoPlay){
-            dispatch(setToFirstState())
+    const startOrPause = () => {
+        if (autoPlay === false) {
+            dispatch(setToNextState())
             setAutoPlay(true)
             setMessage("Autoplaying")
-        }else{
+        } else {
             setAutoPlay(false)
             setMessage("Autoplaying stopped")
         }
-
     }
 
 
     useEffect(() => {
-        console.log("useEffect")
+        console.log("useEffect currentEventNo, autoplat", currentEventNo, autoPlay)
+        console.log("currentEventNo === statesStore.length - 1 ", currentEventNo, statesStore.length - 1)
         const timeout = setTimeout(() => {
-            if (currentEventNo === statesStore.length - 1) {
+            if (currentEventNo === statesStore.length - 1 && autoPlay === true) {
                 setAutoPlay(false)
                 setMessage("Auto play done")
 
-            } else {
-                dispatch(setToNextEvent())
+            } else if (autoPlay === true) {
+                dispatch(setToNextState())
+                clearTimeout(timeout)
             }
-        }, 2000)
+        }, 1000)
         return () => clearTimeout(timeout)
+
     }, [currentEventNo])
 
     // disable all other buttons
@@ -53,7 +67,7 @@ export const EventsPlayer = ({ canvasEventStore, currentEventNo, statesStore }: 
         <h3>Events Player</h3>
         <p>
             {
-                autoPlay ? <strong>Autoplaying </strong> : <></>
+                message ? <strong>{message} </strong> : <></>
             }
             Currently showing {currentEventNo}/{statesStore.length - 1} states</p>
         <div>
@@ -62,11 +76,12 @@ export const EventsPlayer = ({ canvasEventStore, currentEventNo, statesStore }: 
 
             <button onClick={() => dispatch(setToPreviousState())} disabled={currentEventNo === 0 ? true : undefined}>
                 &larr; prev </button>
-            <button onClick={() => dispatch(setToNextEvent())} disabled={currentEventNo === statesStore.length - 1 ? true : undefined}>
+            <button onClick={() => startOrPause()}>  {autoPlay ? "pause" : "play"}  </button>
+            <button onClick={() => dispatch(setToNextState())} disabled={currentEventNo === statesStore.length - 1 ? true : undefined}>
                 next &rarr; </button> &nbsp; &nbsp; &nbsp;
-            <button onClick={() => startAutoPlay()}>
-                {autoPlay ? "stop autoplay" : "auto play"}
-            </button> &nbsp; &nbsp; &nbsp;
+            {/* <button onClick={() => startAutoPlay()}>
+                {autoPlay ? "pause autoplay" : "auto play from start"}
+            </button> &nbsp; &nbsp; &nbsp; */}
         </div>
 
     </div>

@@ -65,7 +65,7 @@ const canvasSlice = createSlice({
         clearCanvas(state) {
             state.currentState = defaultCanvasState;
         },
-        setToNextEvent(state) {
+        setToNextState(state) {
             console.log("setNextEvent")
             const eventNo = state.currentEventNo + 1;
             state.currentState = state.statesStore[eventNo];
@@ -95,7 +95,7 @@ const canvasSlice = createSlice({
 })
 
 export const { addData, clearCanvas,
-    setToNextEvent, setToPreviousState,
+    setToNextState, setToPreviousState,
     setToLastState, setToFirstState
 } = canvasSlice.actions
 
