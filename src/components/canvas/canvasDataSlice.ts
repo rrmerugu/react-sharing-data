@@ -26,7 +26,7 @@ const canvasDataUtils = new CanvasDataUtils()
 //     // if 
 //     let nextState = copyObject(currentState)
 //     nextState.id = nanoid()
-//     if (canvasEvent.name == "addData"){
+//     if (canvasEvent.name == "addCanvasData"){
 //         nextState.canvasNodes.push(canvasEvent.payload.nodes)
 //         nextState.canvasEdges.push(canvasEvent.payload.edges)
 
@@ -45,11 +45,11 @@ const canvasDataSlice = createSlice({
     name: "canvasDataSlice",
     initialState: initialCanvasStateWithHistory,
     reducers: {
-        addData(state, action: PayloadAction<CanvasData>) {
+        addCanvasData(state, action: PayloadAction<CanvasData>) {
             // add an event about what new data is being added 
             const event : CanvasEvent = {
                 id: nanoid(),
-                name: "addData",
+                name: "addCanvasData",
                 payload: action.payload,
                 createdAt: new Date().toDateString()
             }
@@ -57,12 +57,12 @@ const canvasDataSlice = createSlice({
             state.canvasEventStore.push(event)
             //
             state.currentEventNo += 1;
-            const nextState = canvasDataUtils.addData(action.payload, state.currentState)
+            const nextState = canvasDataUtils.addCanvasData(action.payload, state.currentState)
             state.statesStore.push(nextState)
 
         },
 
-        clearCanvas(state) {
+        clearCanvasData(state) {
             state.currentState = defaultCanvasState;
         },
         setToNextState(state) {
@@ -94,7 +94,7 @@ const canvasDataSlice = createSlice({
     }
 })
 
-export const { addData, clearCanvas,
+export const { addCanvasData, clearCanvasData,
     setToNextState, setToPreviousState,
     setToLastState, setToFirstState
 } = canvasDataSlice.actions

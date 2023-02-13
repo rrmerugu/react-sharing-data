@@ -1,5 +1,7 @@
 import { CanvasEvent, CanvasState } from "../../app/types"
-import { zoomInCanvas, zoomOutCanvas, centerCanvas, zoomScale as _zoomScale } from "../canvas/networkSlice";
+import { zoomInCanvas, zoomOutCanvas, centerCanvas, zoomScale as _zoomScale, 
+    redrawCanvas } from "../canvas/networkSlice";
+import { clearCanvasData} from "../canvas/canvasDataSlice";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useState, useEffect, useRef } from "react";
 
@@ -21,8 +23,8 @@ export const CanvasNav = () => {
     return <div className="eventsPlayer" style={{ "border": "1px solid #efefef" }}>
         <h3>CanvasNav</h3>
         <div>
-            {/* <button onClick={() => dispatch(setToFirstState())} > clear </button> 
-            <button onClick={() => dispatch(setToLastState())}> redraw</button> &nbsp; &nbsp; &nbsp; */}
+            <button onClick={() => dispatch(clearCanvasData())} > clear </button> 
+            <button onClick={() => dispatch(redrawCanvas())}> redraw</button> &nbsp; &nbsp; &nbsp;
 
             <span>{zoomScale * 100}%</span>
             <button onClick={() => dispatch(zoomInCanvas())}> zoom In + </button>

@@ -66,12 +66,20 @@ const graphNetworkSlice = createSlice({
                     }
                   })
             }
-        }
+        },
+
+        redrawCanvas(state, action: PayloadAction ){
+            if (state.network){
+                state.network.redraw()
+            }
+        },
+ 
     }
 })
 
 
-export const { setNetwork, zoomInCanvas, zoomOutCanvas, centerCanvas } = graphNetworkSlice.actions
+export const { setNetwork, zoomInCanvas, zoomOutCanvas, centerCanvas,
+     redrawCanvas } = graphNetworkSlice.actions
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

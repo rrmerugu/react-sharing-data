@@ -5,7 +5,7 @@ import { uuidv4, copyObject } from "../../app/utils";
 
 export class CanvasDataUtils {
 
-    addData(canvasData: CanvasData, currentState: CanvasState){
+    addCanvasData(canvasData: CanvasData, currentState: CanvasState){
         // TODO - add CanvasEvent
 
         let nextState = copyObject(currentState)

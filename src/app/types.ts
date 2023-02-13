@@ -36,7 +36,7 @@ export interface CanvasStateHistory {
 }
 
 
-export type CanvasEventType = "highlightNode" | "unHighlightNode" | "addData" | "removeData"
+export type CanvasEventType = "highlightNode" | "unHighlightNode" | "addCanvasData" | "removeData"
 
 export interface CanvasEvent {
     id: string,

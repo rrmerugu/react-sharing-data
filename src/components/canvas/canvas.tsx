@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { ArtBoard } from '../artBoard/artBoard';
-import { addData, clearCanvas } from './canvasDataSlice';
+import { addCanvasData, clearCanvasData } from './canvasDataSlice';
 import { CanvasNode } from '../../app/types';
 import {
     currentState as currentState_,
@@ -49,11 +49,11 @@ export const GraphCanvas = () => {
 
             <button
                 aria-label="add Node"
-                onClick={() => dispatch(addData({ canvasNodes: [randNode()], canvasEdges: [] }))}
+                onClick={() => dispatch(addCanvasData({ canvasNodes: [randNode()], canvasEdges: [] }))}
             >+ add Node  </button>
             <button
-                aria-label="add Node"
-                onClick={() => dispatch(clearCanvas())}
+                aria-label="clear data"
+                onClick={() => dispatch(clearCanvasData())}
             >clear data  </button>
 
 
