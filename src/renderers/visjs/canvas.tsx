@@ -166,7 +166,7 @@ const VisCanvas = ({
     // }, [eventHandlers]);
 
     // @ts-ignore
-    return <div ref={container} style={style}/>;
+    return <div ref={container} className={"canvas"} style={style}/>;
 
 };
 

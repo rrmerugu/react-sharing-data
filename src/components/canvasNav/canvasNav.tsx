@@ -1,9 +1,10 @@
 import { CanvasEvent, CanvasState } from "../../app/types"
 import { zoomInCanvas, zoomOutCanvas, centerCanvas, zoomScale as _zoomScale, 
-    redrawCanvas } from "../canvas/networkSlice";
+    redrawCanvas, saveAsPNG, saveAsJPEG } from "../canvas/networkSlice";
 import { clearCanvasData} from "../canvas/canvasDataSlice";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useState, useEffect, useRef } from "react";
+import { nanoid } from "@reduxjs/toolkit";
 
 
 // export interface EventsPlayerProps {
@@ -31,15 +32,10 @@ export const CanvasNav = () => {
             <button onClick={() => dispatch(centerCanvas())}> center </button>
             <button onClick={() => dispatch(zoomOutCanvas())} disabled={zoomScale <= .25 ? true : undefined} > zoom out - </button>&nbsp; &nbsp; &nbsp;
 
-            {/* export as : 
-            <button onClick={() => dispatch(setToLastState())}> PNG</button>
-            <button onClick={() => dispatch(setToLastState())}> SVG </button>
-            <button onClick={() => dispatch(setToLastState())}> JPEG </button>&nbsp; &nbsp; &nbsp; */}
-
-
-
-
-
+            export as : 
+            <button onClick={() => dispatch(saveAsPNG({fileName: nanoid() + ".png"}))}> PNG</button>
+            {/* <button onClick={() => dispatch(setToLastState())}> SVG </button> */}
+            <button onClick={() => dispatch(saveAsJPEG({fileName: nanoid() + ".jpeg"}))}> JPEG </button>&nbsp; &nbsp; &nbsp;
         </div>
 
     </div>
