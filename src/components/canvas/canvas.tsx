@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { ArtBoard } from '../artBoard/artBoard';
-import { addData, clearCanvas } from './canvasSlice';
+import { addData, clearCanvas } from './canvasDataSlice';
 import { CanvasNode } from '../../app/types';
 import {
     currentState as currentState_,
     currentEventNo as currentEventNo_,
     statesStore as statesStore_,
     canvasEventStore as canvasEventStore_,
-} from './canvasSlice';
+} from './canvasDataSlice';
 // import { canvasEvents as canvasEvents_ } from '../events/eventsSlice';
 import { uuidv4 } from '../../app/utils';
 import EventsPlayer from '../eventsPlayer/eventsPlayer';

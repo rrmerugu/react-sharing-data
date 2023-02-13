@@ -1,5 +1,5 @@
 import { CanvasEvent, CanvasState } from "../../app/types"
-import { setToFirstState, setToLastState, setToNextState, setToPreviousState } from "../canvas/canvasSlice"
+import { setToFirstState, setToLastState, setToNextState, setToPreviousState } from "../canvas/canvasDataSlice"
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useState, useEffect, useRef } from "react";
 
@@ -17,6 +17,7 @@ export const CanvasNav = () => {
     const dispatch = useAppDispatch();
 
 
+    // const zoomIm()
 
 
     return <div className="eventsPlayer" style={{ "border": "1px solid #efefef" }}>
