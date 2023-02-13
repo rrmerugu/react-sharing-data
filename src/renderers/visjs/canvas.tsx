@@ -18,7 +18,7 @@ import {createDefaultOptions, detectNodeSizeBasedOnEdges} from "./converters";
 // import {copyObject} from "../utils";
 import {CanvasDisplaySettings, VisCanvasData} from "./types";
 
-export type getNetworkCallback = (network: Network) => {};
+export type getNetworkCallback = (network: Network) => void;
 export type eventCallback = (params?: any) => void
 
 

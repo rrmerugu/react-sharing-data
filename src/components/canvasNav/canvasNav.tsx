@@ -1,5 +1,5 @@
 import { CanvasEvent, CanvasState } from "../../app/types"
-import { setToFirstState, setToLastState, setToNextState, setToPreviousState } from "../canvas/canvasDataSlice"
+import { zoomInCanvas, zoomOutCanvas, centerCanvas, zoomScale as _zoomScale } from "../canvas/networkSlice";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useState, useEffect, useRef } from "react";
 
@@ -15,25 +15,24 @@ export const CanvasNav = () => {
 
 
     const dispatch = useAppDispatch();
-
-
-    // const zoomIm()
+    const zoomScale = useAppSelector(_zoomScale)
 
 
     return <div className="eventsPlayer" style={{ "border": "1px solid #efefef" }}>
         <h3>CanvasNav</h3>
         <div>
-            <button onClick={() => dispatch(setToFirstState())} > clear </button> 
-            <button onClick={() => dispatch(setToLastState())}> redraw</button> &nbsp; &nbsp; &nbsp;
+            {/* <button onClick={() => dispatch(setToFirstState())} > clear </button> 
+            <button onClick={() => dispatch(setToLastState())}> redraw</button> &nbsp; &nbsp; &nbsp; */}
 
-            <button onClick={() => dispatch(setToLastState())}> zoom In + </button>
-            <button onClick={() => dispatch(setToLastState())}> center </button>
-            <button onClick={() => dispatch(setToLastState())}> zoom out - </button>&nbsp; &nbsp; &nbsp;
+            <span>{zoomScale * 100}%</span>
+            <button onClick={() => dispatch(zoomInCanvas())}> zoom In + </button>
+            <button onClick={() => dispatch(centerCanvas())}> center </button>
+            <button onClick={() => dispatch(zoomOutCanvas())} disabled={zoomScale <= .25 ? true : undefined} > zoom out - </button>&nbsp; &nbsp; &nbsp;
 
-            export as : 
+            {/* export as : 
             <button onClick={() => dispatch(setToLastState())}> PNG</button>
             <button onClick={() => dispatch(setToLastState())}> SVG </button>
-            <button onClick={() => dispatch(setToLastState())}> JPEG </button>&nbsp; &nbsp; &nbsp;
+            <button onClick={() => dispatch(setToLastState())}> JPEG </button>&nbsp; &nbsp; &nbsp; */}
 
 
 

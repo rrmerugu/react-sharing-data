@@ -1,13 +1,17 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
-import canvasReducer from "../components/canvas/canvasDataSlice";
+import canvasDataReducer from "../components/canvas/canvasDataSlice";
+import graphNetworkReducer from "../components/canvas/networkSlice";
 // import eventsReducer from "../components/events/eventsSlice"
 
 export const store = configureStore({
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false
+  }),
   reducer: {
     counter: counterReducer,
-    graphCanvas: canvasReducer,
-    // events : eventsReducer
+    graphCanvas: canvasDataReducer,
+    graphNetwork : graphNetworkReducer
   },
 });
 
